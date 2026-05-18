@@ -384,7 +384,7 @@ async function openAdminPanel() {
     }
     // Step 3: Backup code recovery
     if (backupCodes.length > 0) {
-        const backupCode = prompt("ឫបញ្ចូល Backup Code របស់អ្នក៖\n(ត្រូវប្រើម្តងតែម្ដង)");
+        const backupCode = prompt("ឫបញ្ចូល Backup Code របស់អ្នក៖\n(ត្រូវបានប្រើម្ដងរួចហើយ)");
         if (backupCode && backupCodes.includes(backupCode.toUpperCase())) {
             alert("Backup Code ត្រឹមត្រូវ។");
             // Remove used backup code
