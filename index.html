@@ -1,114 +1,626 @@
 <!DOCTYPE html>
-<html lang="km">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imperial POS - ភោជនីយដ្ឋាន ហួ កាំង</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HUOKAING THARA | Cybersecurity </title>
+<style>
+  /* Background Rain Canvas Styling */
+  #rainCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    filter: blur(1.5px);
+    background: #000;
+  }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header.hero {
+    max-width: 900px;
+    margin: 30px auto 15px;
+    padding: 40px;
+    background: rgba(0,0,0,0.75);
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,0,0.1);
+    text-align:center;
+  }
+  h1 {
+    font-size: 2.5em;
+    animation: colorChange 1.5s infinite alternate ease-in-out;
+    margin: 0 0 20px;
+  }
+  @keyframes colorChange {
+    0% { color: #00f; text-shadow: 0 0 5px #00f;}
+    33% { color: #f00; text-shadow: 0 0 5px #f00;}
+    66% { color: #0f0; text-shadow: 0 0 5px #0f0;}
+    100% { color: #00f; text-shadow: 0 0 5px #00f;}
+  }
+  #intro-text {
+    font-size: 1.25rem;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.5;
+    color: #afa;
+  }
+  section {
+    max-width: 900px;
+    margin: 20px auto 40px;
+    padding: 30px 40px;
+    background: rgba(0,0,0,0.75);
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,0,0.1);
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+  ul, li {
+    color: #ccc;
+    margin-left: 1.3em;
+  }
+  ul.languages, ul.certifications {
+    list-style-position: inside;
+    padding-left: 0;
+  }
+  ul.languages li a,
+  ul.certifications li {
+    font-weight: bold;
+    color: #0f0;
+  }
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 8px 8px 16px 0;
+    background: rgba(0,128,0,0.2);
+    color: #0f0;
+    border: 1px solid #0f0;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    min-width: 90px;
+    text-align: center;
+  }
+  .btn:hover, .btn:focus {
+    background: #0f0;
+    color: #000;
+    box-shadow: 0 0 15px #0f0;
+    outline: none;
+  }
+  #controls {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.95);
+    border-top: 2px solid #0f0;
+    padding: 18px 15px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    z-index: 10000;
+  }
+  #controls > * {
+    flex-grow: 1;
+    max-width: 170px;
+    min-width: 140px;
+  }
+  #langSelect {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #0f0;
+    background-color: #000;
+    color: #0f0;
+  }
+  #toggleVoiceBtn, #sendMessageBtn {
+    width: 100%;
+  }
+  #logo {
+    flex-basis: 100%;
+    text-align: center;
+    color: #39ff14;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.4rem;
+    user-select: none;
+    margin-top: 6px;
+  }
+  /* AI Presentation container */
+  #aiPresentation {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    background-color: #101010dd;
+    padding: 30px 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,0,0.1);
+    color: #afa;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  #aiPresentation h2 {
+    color: #39ff14;
+    margin-bottom: 8px;
+  }
+  footer {
+    max-width:900px; 
+    margin: 20px auto 40px;
+    padding:14px 20px;
+    font-size:0.9em; 
+    color:#e63946; 
+    text-align:center;
+    background-color: #0d0d0d;
+    border-radius: 8px;
+  }
+  footer p, footer div {
+    margin: 6px 0;
+  }
+  footer p:first-child {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  footer .important-note {
+    font-size: 0.8em;
+    color:#ff914d;
+  }
+  footer .security-triad {
+    font-size: 0.75em;
+    color: #ccc;
+  }
+  footer .ethical-oath {
+    font-size: 0.8em;
+    color: #66ffcc;
+    font-style: italic;
+  }
+  footer .whitehat {
+    font-size: 0.8em;
+    color: #999;
+    filter: blur(1px);
+  }
+  @media (max-width: 640px) {
+    #controls {
+      flex-direction: column;
+      max-height: 55vh;
+      overflow-y: auto;
+    }
+    #controls > * {
+      max-width: 100%;
+      min-width: auto;
+    }
+  }
+</style>
 </head>
-<body>
+<body> 
 
-    <div class="top-bar">
-        <div id="Search" style="flex: 1;">
-            <input type="text" id="search-input" placeholder="ស្វែងរកម្ហូប ឬភេសជ្ជៈ (Search)..." onkeyup="searchProduct(this.value)">
-        </div>
+<audio id="backgroundMusic" src="huokaingthara2.mp3" autoplay loop controls style="position: fixed; bottom: 70px; left: 10px; z-index: 10001; background: rgba(0,0,0,0.5); border-radius: 5px;">
 
-<div id="speakkhmer" style="text-align: center; padding: 20px;">
-    <button onclick="playMetaVoice()" class="meta-voice-btn">
-        <div class="pulse-ring"></div>
-        <span class="icon">🎙️</span>
-        <span class="text">សាកល្បងសំឡេង AI</span>
-    </button>
+</audio>
+
+<canvas id="rainCanvas"></canvas>
+
+<header class="hero" aria-label="Introduction">
+  <h1>HUOKAING THARA - Cybersecurity <br />with a Passion for Protecting the Digital World</h1>
+  <p id="intro-text">I specialize in Penetration testing, ethical hacking, network security, and more to safeguard your systems and data.</p>
+</header>
+
+<section id="about" aria-label="About HUOKAING THARA">
+  <h2 style="color: #3498db; border-bottom: 1px solid #3498db;">The White Hat Hacker Visionary (Ethical Hacker)</h2>
+  <p>
+    <strong>Welcome to HUOKAING THARA's learning and security workspace. As a cybersecurity student and Ethical Hacker, I focus on the basics and advanced levels of Penetration Testing, AI, and CTI. My mission is to research new ways to keep the internet safe. </strong>, By 2029, I aim to simplify security through AI so that everyone can stay protected. Let's learn and defend together.
+  </p>
+  
+  <p>
+    Welcome to the research hub of HUOKAING THARA. Driven by a passion for protecting the digital frontier, I focus on merging Artificial Intelligence with advanced security protocols. As a student of the craft and a Ethical Hacker, I specialize in Penetration Testing and CTI. My journey is about building a safer world for everyone by staying ahead of Cyber threats and sharing that knowledge freely.
+  </p>
+
+  <p style="font-style: italic; color: #f1c40f;">
+    "As we look toward his 2029 milestone, we see more than a specialist; we see a future world-class expert who will redefine digital integrity."
+  </p>
+</section>
+
+<section id="skills" aria-label="My Skills and Expertise">
+  <h2 style="color: #e74c3c; border-bottom: 1px solid #e74c3c;">Expertise & Technical Mastery</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+    <ul style="list-style-type: '🛡️ '; color: #ccc;">
+      <li>Penetration Testing</li>
+      <li>Digital Forensics</li>
+      <li>Cyber Threat Intelligence (CTI)</li>
+      <li>Disaster Recovery</li>
+      <li>Data Recovery</li>
+    </ul>
+    <ul style="list-style-type: '🛡️ '; color: #ccc;">
+      <li>Ethical Hacking</li>
+      <li>Artificial Intelligence</li>
+      <li>Machine Learning</li>
+      <li>Network Security</li>
+      <li>Programming</li>
+    </ul>
+  </div>
+</section>
+
+<section id="about" aria-label="About Me">
+  <h2 style="color: #3498db; border-bottom: 1px solid #3498db;">About Me</h2>
+  <p>
+    I'm a highly motivated and experienced cybersecurity professional with a diverse skillset spanning Penetration Testing, ethical hacking, network security, and CTI. I'm always eager to learn and explore new frontiers in cybersecurity to stay ahead of evolving threats.
+  </p>
+</section>
+
+<section id="languages" aria-label="Languages I Speak">
+  <h2 style="color: #e74c3c; border-bottom: 1px solid #e74c3c;">Languages</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+    <ul class="languages">
+      <li><a href="https://translate.google.com/translate?sl=en&tl=km&u=https://tharahuokaing.github.io/" class="btn" target="_blank" rel="noopener noreferrer">Khmer</a></li>
+      <li><a href="https://tharahuokaing.github.io/" class="btn" target="_blank" rel="noopener noreferrer">English</a></li>
+      <li><a href="https://translate.google.com/translate?sl=en&tl=th&u=https://tharahuokaing.github.io/" class="btn" target="_blank" rel="noopener noreferrer">Thai</a></li>
+    </ul>
+    <ul class="languages">
+      <li><a href="https://translate.google.com/translate?sl=en&tl=zh-CN&u=https://tharahuokaing.github.io/" class="btn" target="_blank" rel="noopener noreferrer">Chinese (Currently Learning)</a></li>
+      <li><a href="https://translate.google.com/translate?sl=en&tl=lo&u=https://tharahuokaing.github.io/" class="btn" target="_blank" rel="noopener noreferrer">Laotian (Currently Learning)</a></li>
+      <li><a href="https://translate.google.com/translate?sl=en&tl=zh-CN&u=https://tharahuokaing.github.io/" class="btn" target="_blank" rel="noopener noreferrer">Singapore Mandarin (Currently Learning)</a></li>
+      <li><a href="https://translate.google.com/translate?sl=en&tl=fr-CN&u=https://tharahuokaing.github.io/" class="btn" target="_blank" rel="noopener noreferrer">French (Currently Learning)</a></li>
+    </ul>
+  </div>
+</section>
+
+<section id="experience" aria-label="Experience and Certifications">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Experience & Certifications</h2>
+  <ul class="certifications" style="list-style-type: '✔ '; color: #fff;">
+    <li>Cybersecurity Certificate</li>
+    <li>Data Science Certificate</li>
+    <li>Artificial Intelligence Certificate</li>
+    <li>Hacking Advanced Certificate</li>
+  </ul>
+</section>
+
+<section id="learning-resources" aria-label="Learning Resources">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Learning Resources</h2>
+  <ul>
+    <li><a href="https://maps.app.goo.gl/MkdGEQ4cT3XcJmQL8" class="btn" target="_blank" rel="noopener noreferrer">Anuwat High School</a></li>
+    <li><a href="https://www.netacad.com/" class="btn" target="_blank" rel="noopener noreferrer">Cisco Networking Academy</a></li>
+    <li><a href="https://mystanfordconnection.stanford.edu/portal/logon.do?method=load" class="btn" target="_blank" rel="noopener noreferrer">Stanford University (Online)</a></li>
+    <li><a href="https://programminghub.io/" class="btn" target="_blank" rel="noopener noreferrer">Programming Hub</a></li>
+    <li><a href="https://www.coursera.org/" class="btn" target="_blank" rel="noopener noreferrer">Coursera</a></li>
+  </ul>
+</section>
+
+<section id="y2k38-estimate-world-economic-collapse" aria-label="Y2K38 Estimate World Economic Collapse">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Y2K38 Estimate World Economic Collapse (Education Purpose & Fun)</h2>
+  <ul>
+      <li><a href="https://tharahuokaing.github.io/y2k38-world-overflow-crisis-2038/" class="btn" target="_blank" rel="noopener noreferrer">Y2K38-World-Overflow-Crisis-2038-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/y2k38-europe-overflow-crisis-2038/" class="btn" target="_blank" rel="noopener noreferrer">Y2K38-EUROPE-Overflow-Crisis-2038-System</a></li>      
+      <li><a href="https://tharahuokaing.github.io/y2k38-asean-overflow-crisis-2038/" class="btn" target="_blank" rel="noopener noreferrer">Y2K38-ASEAN-Overflow-Crisis-2038-System</a></li>  </ui>
+      <li><a href="https://tharahuokaing.github.io/y2k38_mitigation_system/" class="btn" target="_blank" rel="noopener noreferrer">Y2K38-ASEAN-Mitigation-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/y2k38_asean_cyber_core/" class="btn" target="_blank" rel="noopener noreferrer">Y2K38-ASEAN-Cyber-Core-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/Y2K38_Problem/" class="btn" target="_blank" rel="noopener noreferrer">Year-2038-problem (Y2K38) Penetration-Testing-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/y2k/" class="btn" target="_blank" rel="noopener noreferrer">Y2K-Explanation-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/solar-system/" class="btn" target="_blank" rel="noopener noreferrer">Solar-System (64-Bit)-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/solar-system1/" class="btn" target="_blank" rel="noopener noreferrer">Solar-System-1 (64-Bit)-System</a></li>
+  </ul>
+</section>
+<section id="v2x" aria-label="Vehicle-to-everything (V2X)">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Vehicle-to-everything (V2X) (Education Purpose & Fun)</h2>
+  <ul>
+      <li><a href="https://tharahuokaing.github.io/V2X/" class="btn" target="_blank" rel="noopener noreferrer">Vehicle-to-everything (V2X)-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/V2X_Research/" class="btn" target="_blank" rel="noopener noreferrer">V2X-Research-System</a></li>
+  </ul>
+</section>
+<section id="artificial-intelligence" aria-label="Artificial Intelligence (AI)">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Artificial Intelligence (AI) (Education Purpose & Fun)</h2>
+  <ul>
+      <li><a href="https://tharahuokaing.github.io/ai/" class="btn" target="_blank" rel="noopener noreferrer">HuokaingThara-AI-System</a></li>  
+      <li><a href="https://tharahuokaing.github.io/singularity_roadmap/" class="btn" target="_blank" rel="noopener noreferrer">Singularity_Roadmap-System</a></li>
+      <li><a href="Maitreya.png" class="btn" target="_blank" rel="noopener noreferrer">Maitreya</a></li>
+      <li><a href="សិអារ្យមេត្រី.jpg" class="btn" target="_blank" rel="noopener noreferrer">សិអារ្យ មេត្រី</a></li>
+  </ul>
+</section>
+<section id="solar-cyber-empire" aria-label="Solar-Cyber-Empire">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Solar-Cyber-Empire (Education Purpose & Fun)</h2>
+  <ul>
+      <li><a href="https://tharahuokaing.github.io/solar-cyber-empire/" class="btn" target="_blank" rel="noopener noreferrer">Solar-Cyber-Empire-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/space-emperor-cyber-dominion/" class="btn" target="_blank" rel="noopener noreferrer">Space-Emperor-Cyber-System</a></li>
+  </ul>
+</section>
+<section id="cyber-oil-arena" aria-label="Cyber-Oil-Arena">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Cyber-Oil-Arena (Education Purpose & Fun)</h2>
+  <ul>  
+      <li><a href="https://cnc.fandom.com/wiki/Command_%26_Conquer:_Generals_-_Zero_Hour" class="btn" target="_blank" rel="noopener noreferrer">Generals Zero Hour Game</a></li>
+      <li><a href="https://tharahuokaing.github.io/cyber-oil-arena/" class="btn" target="_blank" rel="noopener noreferrer">Cyberpunk-Oil-Arena-System</a></li>   
+      <li><a href="https://tharahuokaing.github.io/oil/" class="btn" target="_blank" rel="noopener noreferrer">World map for oil exploration system</a></li>
+      <li><a href="https://tharahuokaing.github.io/flight/" class="btn" target="_blank" rel="noopener noreferrer">World map for finding plane system</a></li>
+      <li><a href="https://tharahuokaing.github.io/cyber-energy-vault/" class="btn" target="_blank" rel="noopener noreferrer">Cyber-Energy-Vault-System</a></li>   
+  </ul>
+</section>
+<section id="useful-links" aria-label="Useful Links">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Personal Links (Education Purpose & Fun)</h2>
+  <nav class="navbar" aria-label="Personal links navigation">
+    <ul style="list-style-type: '⚡ '; color: #ccc; padding-left: 0; display: flex; flex-wrap: wrap; gap: 8px;">
+​​​      <li><a href="https://tharahuokaing.github.io/restaurant1/" class="btn" target="_blank" rel="noopener noreferrer">ភោជនីយដ្ឋាន ផ្កាយ ៥ ហួ កាំង - សាខាមុខកំពូល ខេត្តកណ្តាល</a></li>
+​​​      <li><a href="https://tharahuokaing.github.io/restaurant2/" class="btn" target="_blank" rel="noopener noreferrer">ភោជនីយដ្ឋាន ផ្កាយ ៥ ហួ កាំង - សាខាបាភ្នំ ខេត្តព្រៃវែង</a></li>
+      <li><a href="https://tharahuokaing.github.io/restaurant3/" class="btn" target="_blank" rel="noopener noreferrer">ភោជនីយដ្ឋាន ផ្កាយ ៥ ហួ កាំង - សាខាអូរស្មាច់ ខេត្តឧត្តមានជ័យ</a></li>
+      <li><a href="https://tharahuokaing.github.io/bank1/" class="btn" target="_blank" rel="noopener noreferrer">HUOKAING-THARA-Bank1-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/T-Coin/" class="btn" target="_blank" rel="noopener noreferrer">T-Coin-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/casino1/" class="btn" target="_blank" rel="noopener noreferrer">HUOKAING-THARA-Digital-Casino1-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/casino2/" class="btn" target="_blank" rel="noopener noreferrer">HUOKAING-THARA-Digital-Casino2-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/ISP/" class="btn" target="_blank" rel="noopener noreferrer">HUOKAING-THARA-Internet-Service-Provider-System</a></li>
+      <li><a href="https://tharahuokaing.github.io/weeding/" class="btn" target="_blank" rel="noopener noreferrer">Weeding-Invitation</a></li>
+      <li><a href="https://tharahuokaing.github.io/ancient_artifact_auction/" class="btn" target="_blank" rel="noopener noreferrer">Ancient_Artifact_Auction_system</a></li>
+  </nav>
+</section>
+<section id="useful-links" aria-label="Useful Links">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Useful Links (Education Purpose & Fun)</h2>
+  <nhttpsss="navbar" aria-label="Useful links navigation">  
+    <ul style="list-style-type: '⚡ '; color: #ccc; padding-left: 0; display: flex; flex-wrap: wrap; gap: 8px;">
+      <li><a href="https://youtube.com/@chornratanak?si=sc5jP1FM2iZzVgSy" class="btn" target="_blank" rel="noopener noreferrer">Ghost Stories Khmer</a></li>
+      <li><a href="https://vimeo.com/219683658" class="btn" target="_blank" rel="noopener noreferrer">Ghost Stories Technology</a></li>
+  </nav>
+</section>
+
+<section id="useful-links" aria-label="Useful Links">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Useful Links (Education Purpose & Fun)</h2>
+  <nhttpsss="navbar" aria-label="Useful links navigation">  
+    <ul style="list-style-type: '⚡ '; color: #ccc; padding-left: 0; display: flex; flex-wrap: wrap; gap: 8px;">
+      <li><a href="https://tharahuokaing.github.io/history_of_ecash/" class="btn" target="_blank" rel="noopener noreferrer">A Brief History of eCash and Cashtab</a></li>
+      <li><a href="https://www.cashtab.com/" class="btn" target="_blank" rel="noopener noreferrer">eCash | Cash for the Internet system</a></li>
+      <li><a href="https://raw.githubusercontent.com/tharahuokaing/tharahuokaing.github.io/refs/heads/main/example.jpg" class="btn" target="_blank" rel="noopener noreferrer">Sample for seed phrase | Cash for the Internet</a></li>
+  </nav>
+</section>
+      
+<section id="useful-links" aria-label="Useful Links">
+  <h2 style="color: #9b59b6; border-bottom: 1px solid #9b59b6;">Useful Links (Education Purpose & Fun)</h2>
+  <nhttpsss="navbar" aria-label="Useful links navigation">  
+    <ul style="list-style-type: '⚡ '; color: #ccc; padding-left: 0; display: flex; flex-wrap: wrap; gap: 8px;">
+      <li><a href="https://gemini.google.com/app" class="btn" target="_blank" rel="noopener noreferrer">Google-Gemini</a></li>
+      <li><a href="https://copilot.microsoft.com" class="btn" target="_blank" rel="noopener noreferrer">Microsoft-Copilot</a></li>
+      <li><a href="https://ernie.baidu.com/chat/" class="btn" target="_blank" rel="noopener noreferrer">Baidu-ERNIE</a></li>
+      <li><a href="https://chatgpt.com/" class="btn" target="_blank" rel="noopener noreferrer">Chatgpt</a></li>
+      <li><a href="https://www.perplexity.ai/" class="btn" target="_blank" rel="noopener noreferrer">Perplexity</a></li>
+      <li><a href="https://www.virustotal.com/gui/home/upload" class="btn" target="_blank" rel="noopener noreferrer">VirusTotal</a></li>
+      <li><a href="https://play.google.com/store/apps/details?id=ch.protonvpn.android&pcampaignid=web_share" class="btn" target="_blank" rel="noopener noreferrer">Proton-VPN</a></li>
+    </ul>
+  </nav>
+</section>
+
+<!-- Controls fixed bottom -->
+<div id="controls" role="region" aria-label="Controls panel">
+  <!-- Language switcher -->
+  <select id="langSelect" aria-label="Select language">
+    <option value="en">English</option>
+    <option value="km">Khmer (ភាសាខ្មែរ)</option>
+    <option value="th">Thai (ไทย)</option>
+    <option value="lo">Laotian (ລາວ)</option>
+    <option value="zh">Chinese (中文)</option>
+    <option value="si">Singapore Mandarin</option>
+    <option value="fre">French</option>
+  </select>
+  
+  <button id="toggleVoiceBtn" class="btn" aria-label="Toggle voice gender">🔊 Voice: Female</button>
+  <button id="sendMessageBtn" class="btn" aria-label="Send oath message">💬 Send Message</button>
+  
+  <div id="logo"> &copy; 2029 HUOKAING THARA | Cybersecurity Expert</div>
 </div>
 
-<style>
-    .meta-voice-btn {
-        position: relative;
-        background: rgba(0, 255, 255, 0.1);
-        border: 2px solid #00ffff;
-        color: #00ffff;
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 50px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-        overflow: visible;
-    }
-
-    .meta-voice-btn:hover {
-        background: rgba(0, 255, 255, 0.2);
-        box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
-        transform: translateY(-2px);
-    }
-
-    .meta-voice-btn .icon {
-        font-size: 20px;
-        filter: drop-shadow(0 0 5px #00ffff);
-    }
-
-    /* Synthetic Pulse Effect */
-    .pulse-ring {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        border-radius: 50px;
-        border: 2px solid #00ffff;
-        animation: meta-pulse 2s infinite;
-        opacity: 0;
-    }
-
-    @keyframes meta-pulse {
-        0% { transform: scale(1); opacity: 0.5; }
-        100% { transform: scale(1.3); opacity: 0; }
-    }
-	
-	.invoice-header {
-		text-align: center;
-		margin-bottom: 20px;
-	}
-
-	.invoice-logo {
-	    width: 90px;
-		height: auto;
- 	   margin-bottom: 10px;
-    	display: block;
-    	margin-left: auto;
-    	margin-right: auto;
-    	border-radius: 12px;
-    	filter: drop-shadow(0 0 10px rgba(0,255,255,0.5));
-	}
-
-</style>
+<footer aria-label="Footer">
+  <p>🔥 &copy; 2029 HUOKAING THARA | Cybersecurity Expert </p>
+  
+  <p class="important-note">
+    Graduation Milestone: End of 2028 — Secured with Advanced Cybersecurity knowledge</p>
+  
+  <p class="security-triad">
+    🔒 Integrity • Availability • Confidentiality
+  </p>
+  
+  <p class="ethical-oath">
+    Oath: <br>
+    "Make sure you don't any commit crime — we will help you for free. <br>
+    We don't need your money. Upgrade your skill with us."
+  </p>
+  
+  <p class="whitehat Hacker">White Hat Hacker</p>
+</footer>
 
 <script>
-    function playMetaVoice() {
-        const text = "សូមអញ្ជើញភ្ញៀវទាំងអស់មកកាន់ភោជនីយដ្ឋាន ហួ កាំង។ នៅក្នុងពិភពឌីជីថលដ៏អស្ចារ្យនេះ ម្ហូបអាហារមិនមែនគ្រាន់តែជាអាហារទេ រាល់ម្ហូបអាហារទាំងអស់គឺជាការបកស្រាយដ៏វិសេសនៃអាណាចក្របុរាណ ដែលបានផ្លាស់ប្តូរទៅជាទម្រង់ឌីជីថល។ ហួ កាំង មិនមែនគ្រាន់តែជាកន្លែងសម្រាប់ទទួលទានអាហារប៉ុណ្ណោះទេ វាជាកន្លែងដែលកាស៊ីណូឌីជីថល, ធនាគារបែបឌីជីថល។ បានរួមបញ្ចូលគ្នាជាមួយនឹងការស្រាវជ្រាវបច្ចេកវិទ្យាដ៏ទំនើប។ នៅទីនេះ អ្នកនឹងទទួលបានបទពិសោធន៍ដ៏អស្ចារ្យ ដូចជាការចូលទៅក្នុងអាណាចក្រដែលគ្រប់យ៉ាងសុទ្ធតែជាឌីជីថល។ Where everything lives in the Digital World. Here, food isn’t just food, it’s light, and imagination. Every dish is like a story from the past, reborn in digital form.";
-    
-        // Use SpeechSynthesisUtterance for the synthetic voice
-        const msg = new SpeechSynthesisUtterance();
-        msg.text = text;
-        msg.lang = 'km-KH'; // Set to Khmer
-        
-        // Meta-synthetic adjustment: lower pitch and slower rate sounds more "AI"
-        msg.rate = 0.9; 
-        msg.pitch = 1.1; 
+  // Rain canvas setup with reduced drops intensity and smaller length/speed
+  const canvas = document.getElementById('rainCanvas');
+  const ctx = canvas.getContext('2d');
 
-        window.speechSynthesis.speak(msg);
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Raindrop {
+    constructor() {
+      this.reset();
     }
-// 🛡️ ULTRA SECURE MODE - BLOCK ALL DEV TOOLS
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * -canvas.height;
+      this.length = 5 + Math.random() * 10;  // smaller length
+      this.speed = 1 + Math.random() * 1;    // slower speed
+      this.opacity = 0.1 + Math.random() * 0.5; // lighter opacity
+    }
+    update() {
+      this.y += this.speed;
+      if(this.y > canvas.height) {
+        this.reset();
+      }
+    }
+    draw() {
+      ctx.strokeStyle = `rgba(0, 255, 0, ${this.opacity})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.x, this.y + this.length);
+      ctx.stroke();
+    }
+  }
+
+  const maxDrops = 500;  // reduced raindrop count
+  const raindrops = [];
+  for (let i=0; i<maxDrops; i++) raindrops.push(new Raindrop());
+
+  function drawRain() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const drop of raindrops) {
+      drop.update();
+      drop.draw();
+    }
+  }
+  setInterval(drawRain,33);
+
+  // Voice synthesis and language management
+  let useFemaleVoice = true;
+  const toggleVoiceBtn = document.getElementById('toggleVoiceBtn');
+  const langSelect = document.getElementById('langSelect');
+  const aiText = document.getElementById('aiText');
+  const aiOath = document.getElementById('aiOath');
+
+  // Language data for AI presentation and voice labels
+ // Language adjustment for HUOKAING THARA: Student & Community Outreach Level
+const langData = {
+  en: {
+    welcome: "Welcome to the digital workspace of HUOKAING THARA. I am a Cybersecurity Professional and White Hat Hacker focused on Penetration Testing, AI, and Data Science. My goal is to help secure global networks. By 2029, I aim to lead new AI-driven security projects to keep data safe for everyone.",
+    oath: "HUOKAING THARA's Ethical Hacker Rule: \"Make sure you don't commit any crime. We will help you for free. We don't need your money. Upgrade your skills with us!\"",
+    voiceFemale: "Voice",
+  },
+  km: {
+    welcome: "សូមស្វាគមន៍មកកាន់គេហទំព័ររបស់លោក ហួកាំង ថារ៉ា។ ខ្ញុំគឺជាអ្នកជំនាញសន្តិសុខសាយប័រ (Cybersecurity Professional) និងជា Ethical Hacker ដែលផ្តោតលើការធ្វើតេស្តប្រព័ន្ធ និងបញ្ញាសិប្បនិម្មិត (AI)។ បេសកកម្មរបស់ខ្ញុំគឺជួយការពារប្រព័ន្ធឌីជីថលឱ្យមានសុវត្ថិភាព។ នៅត្រឹមឆ្នាំ ២០២៩ ខ្ញុំមានគោលដៅបង្កើតបច្ចេកវិទ្យាថ្មីៗដើម្បីការពារទិន្នន័យសម្រាប់អ្នករាល់គ្នា។",
+    oath: "គោលការណ៍សីលធម៌របស់លោក ហួកាំង ថារ៉ា: \"សូមប្រាកដថាអ្នកមិនប្រព្រឹត្តបទល្មើសអ្វីឡើយ។ យើងនឹងជួយអ្នកដោយឥតគិតថ្លៃ។ យើងមិនត្រូវការលុយរបស់អ្នកទេ។ មកពង្រឹងសមត្ថភាពរបស់អ្នកជាមួយយើង!\"",
+    voiceFemale: "សំឡេង",
+  },
+  th: {
+    welcome: "ยินดีต้อนรับสู่พื้นที่ดิจิทัลของ HUOKAING THARA ผมเป็นผู้เชี่ยวชาญด้านความปลอดภัยไซเบอร์ (Cybersecurity Professional) และ White Hat Hacker ที่เชี่ยวชาญด้านการทดสอบระบบและ AI เป้าหมายของผมคือการทำให้เครือข่ายดิจิทัลปลอดภัยขึ้น ภายในปี 2029 ผมตั้งใจจะพัฒนาเทคโนโลยีป้องกันข้อมูลเพื่อทุกคน",
+    oath: "กฎเหล็กทางจริยธรรมของ HUOKAING THARA: \"ขอให้แน่ใจว่าคุณจะไม่ทำผิดกฎหมาย เราจะช่วยเหลือคุณฟรี เราไม่ต้องการเงินของคุณ มาพัฒนาทักษะของคุณไปพร้อมกับเรา!\"",
+    voiceMale: "เสียง",
+  },
+  lo: {
+    welcome: "ຍິນດີຕ້ອນຮັບສູ່ພື້ນທີ່ດິຈິຕອນຂອງ HUOKAING THARA. ຂ້ອຍເປັນຜູ້ຊ່ຽວຊານດ້ານຄວາມປອດໄພໄຊເບີ (Cybersecurity Professional) ແລະ White Hat Hacker ທີ່ເນັ້ນໃສ່ການທົດສອບລະບົບ ແລະ AI. ເປົ້າໝາຍຂອງຂ້ອຍແມ່ນເພື່ອປົກປ້ອງລະບົບເຄືອຂ່າຍໃຫ້ປອດໄພ. ໃນປີ 2029, ຂ້ອຍຕັ້ງໃຈຈະສ້າງເຕັກໂນໂລຊີໃໝ່ໆເພື່ອຮັກສາຄວາມປອດໄພຂອງຂໍ້ມູນໃຫ້ທຸກຄົນ.",
+    oath: "ກົດລະບຽບດ້ານຈັນຍาບັນຂອງ HUOKAING THARA: \"ຂໍໃຫ້ໝັ້ນໃຈວ່າເຈົ້າຈະບໍ່ເຮັດຜິດກົດໝາຍ. ພວກເຮົາຈະຊ່ວຍເຈົ້າໂດຍບໍ່ເສຍຄ່າ. ພວກເຮົາບໍ່ຕ້ອງການເງິນຂອງເຈົ້າ. ມາພັດທະນາທັກສະຂອງເຈົ້າກັບພວກເຮົາ!\"",
+    voiceMale: "ສຽງ",
+  },
+  zh: {
+    welcome: "欢迎来到 HUOKAING THARA 的数字空间。我是一名网络安全专业人士 (Cybersecurity Professional) 和白帽黑客，专注于渗透测试、人工智能和数据科学。我的目标是帮助全球网络变得更安全。到 2029 年，我计划通过 AI 驱动的安全技术来保护大家的数据。",
+    oath: "HUOKAING THARA 的道德准则：“请确保不要犯罪。我们将免费为你提供帮助。我们不需要你的钱。来和我们一起提升你的技能吧！”",
+    voiceFemale: "声",
+  },
+  si: {
+    welcome: "Welcome to HUOKAING THARA’s Cybersecurity page. I work with Data Science and AI to build secure network systems. My mission is to share knowledge and help students learn how to defend digital systems properly by 2029. (Singapore English/Mandarin context)",
+    oath: "HUOKAING THARA's Rule: \"Keep it ethical and don't commit any crimes. We offer free help and guidance. We aren't here for money—we are here to help you grow. Upgrade your skills with us!\"",
+    voiceFemale: "Voice",
+  },
+  fr: {
+    welcome: "Bienvenue dans l'espace de travail numérique de HUOKAING THARA. Je suis un professionnel de la cybersécurité et un hacker éthique spécialisé dans les tests d'intrusion, l'IA et la science des données. Mon objectif est de contribuer à la sécurisation des réseaux mondiaux. D'ici 2029, je souhaite piloter de nouveaux projets de sécurité basés sur l'IA afin de garantir la sécurité des données pour tous.",
+    oath: "Règle du hacker éthique de HUOKAING THARA : \"Veillez à ne commettre aucun crime. Nous vous aiderons gratuitement. Nous n'avons pas besoin de votre argent. Développez vos compétences avec nous!\"",
+    voiceFemale: "voix",
+  }
+};
+
+  // Load saved language and voice preference
+  if(localStorage.getItem('selectedLang')){
+    langSelect.value = localStorage.getItem('selectedLang');
+  }
+  if(localStorage.getItem('femaleVoice')==='false'){
+    useFemaleVoice = false;
+  }
+
+  // Update voice button text
+  function updateVoiceBtnText() {
+    toggleVoiceBtn.textContent = '🔊 Voice: ' + (useFemaleVoice ? langData[langSelect.value].voiceFemale : langData[langSelect.value].voiceMale);
+  }
+
+  // Fill AI Presentation texts based on selected language
+  function updateAIPresentation() {
+    const lang = langSelect.value;
+    aiText.textContent = langData[lang].welcome;
+    aiOath.textContent = langData[lang].oath;
+  }
+
+  // Save prefs
+  function saveLangVoice(){
+    localStorage.setItem('selectedLang', langSelect.value);
+    localStorage.setItem('femaleVoice', useFemaleVoice.toString());
+  }
+
+  langSelect.addEventListener('change', () => {
+    saveLangVoice();
+    updateVoiceBtnText();
+    updateAIPresentation();
+    speakText(langData[langSelect.value].welcome);
+  });
+
+  toggleVoiceBtn.addEventListener('click', () => {
+    useFemaleVoice = !useFemaleVoice;
+    saveLangVoice();
+    updateVoiceBtnText();
+    speakText(langData[langSelect.value].welcome);
+  });
+
+  const sendMessageBtn = document.getElementById('sendMessageBtn');
+  sendMessageBtn.addEventListener('click', () => {
+    const oath = langData[langSelect.value].oath;
+    speakText(oath);
+    alert(oath); // also display as alert for user feedback
+  });
+
+  // Speech synthesis helpers
+  function getVoiceByGender(lang, isFemale) {
+    const voices = speechSynthesis.getVoices();
+    let filtered = voices.filter(v => v.lang.toLowerCase().startsWith(lang));
+    if(filtered.length === 0) filtered = voices;
+    if(isFemale){
+      const femaleVoices = filtered.filter(v => /female|woman|girl/i.test(v.name));
+      if(femaleVoices.length) return femaleVoices[0];
+    } else {
+      const maleVoices = filtered.filter(v => /male|man|boy/i.test(v.name));
+      if(maleVoices.length) return maleVoices[0];
+    }
+    // fallback
+    return filtered[0] || null;
+  }
+
+  function speakText(text) {
+    if(speechSynthesis.speaking){
+      speechSynthesis.cancel();
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voice = getVoiceByGender(langSelect.value, useFemaleVoice);
+    if(voice) utterance.voice = voice;
+    utterance.lang = langSelect.value;
+    speechSynthesis.speak(utterance);
+  }
+
+  // On page load: update buttons and AI content, speak welcome automatically
+  window.speechSynthesis.onvoiceschanged = () => {
+    updateVoiceBtnText();
+    updateAIPresentation();
+    if(!window.welcomeSpoken) {
+      speakText(langData[langSelect.value].welcome);
+      window.welcomeSpoken = true;
+    }
+  };
+  // Trigger voiceschanged if already loaded
+  if(speechSynthesis.getVoices().length > 0){
+    window.dispatchEvent(new Event('voiceschanged'));
+  }
+  
+  // 🛡️ ULTRA SECURE MODE - BLOCK ALL DEV TOOLS
     (function() {
       // Block right-click
       document.addEventListener('contextmenu', e => {
         e.preventDefault(); e.stopImmediatePropagation();
-        document.body.innerHTML = '<div style="background:black;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:2em;">🚫 RESTAURANT CLASSIFIED - ACCESS DENIED</div>';
+        document.body.innerHTML = '<div style="background:black;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:2em;">🚫 ACCESS DENIED</div>';
         return false;
       });
 
@@ -130,7 +642,7 @@
         if (window.outerHeight - window.innerHeight > 200 || 
             window.outerWidth - window.innerWidth > 200 ||
             (window.console && window.console.profiles)) {
-          document.body.innerHTML = '<div style="background:#000;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:3em;">🕵️ DEVELOPER TOOLS DETECTED<br>RESTAURANT DATA TERMINATED</div>';
+          document.body.innerHTML = '<div style="background:#000;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:3em;">🕵️ DEVELOPER TOOLS DETECTED<br>DATA TERMINATED</div>';
         }
       }, 500);
 
@@ -139,247 +651,5 @@
       document.addEventListener('dragstart', e => e.preventDefault());
     })();
 </script>
-        
-    </div>
-
-    <div id="category-bar">
-        <button class="btn-cat active" onclick="filter('All')">🍱 ទាំងអស់ (All)</button>
-	<button class="btn-cat" onclick="filter('Available')">📦 មាននៅក្នុងស្តុក (In Stock)</button>
-        <button class="btn-cat" onclick="filter('Food')">🍲 ម្ហូបអាហារ (Food)</button>
-        <button class="btn-cat" onclick="filter('Cigarette')">🚬 បារី (Cigarette)</button>
-        <button class="btn-cat" onclick="filter('Snack')">🍪 អាហារសម្រន់ (Snack)</button>
-        <button class="btn-cat" onclick="filter('Wine')">🍷 ស្រាក្រហម (Wine)</button>
-        <button class="btn-cat" onclick="filter('Alcohol')">🍾 ស្រាវីស្គី (Whisky)</button>
-    	<button class="btn-cat" onclick="filter('Coffee/Fresh Fruit')">🍹 ភេសជ្ជៈ (Coffee & Fresh Fruit)</button>
-        <button class="btn-cat" onclick="filter('Ice-cream')">🍦 ការ៉េម (Ice Cream)</button>
-    </div>
-
-    <div id="main-content">
-        <div id="menu"></div>
-
-        <div id="cart">
-            <div class="invoice-header">
-				<img
-					src="https://github.com/tharahuokaing/restaurant1/blob/main/logo.png?raw=true"
-					alt="Restaurant Logo"
-					class="invoice-logo"
-				>
-                <h2 style="color: var(--hologram-cyan); margin-bottom: 5px;">វិក្កយបត្រ / INVOICE</h2>
-                <p style="font-size: 0.8em; opacity: 0.8;">ភោជនីយដ្ឋាន ហួ កាំង (សាខាមុខកំពូល ខេត្តកណ្តាល ព្រះរាជាណាចក្រកម្ពុជា)</p>
-            </div>
-
-            <div id="cart-list">
-                </div>
-
-            <div class="summary-section">
-                <hr style="border: 0.5px solid rgba(0,255,255,0.2); margin: 15px 0;">
-
-                <div class="summary-line">
-                    <span>តម្លៃសរុប (Subtotal):</span>
-                    <span id="subtotal">$0.00</span>
-                </div>
-
-                <div class="summary-line" style="color: #ff4d4d;">
-                    <span>បញ្ចុះតម្លៃ (Discount 15%):</span>
-                    <span id="discount">-$0.00</span>
-                </div>
-
-                <div class="summary-line grand-total">
-                    <span>សរុបត្រូវបង់:</span>
-                    <span id="final-total">$0.00</span>
-                </div>
-
-                <div id="bank-area">
-                    <div style="font-size: 0.85em; opacity: 0.9;">💸 ការទូទាត់តាមធនាគារ (KH Riel)</div>
-                    <div id="riel-total">0 ៛</div>
-                    <div style="font-size: 0.7em; opacity: 0.6; margin-top: 4px;">$1 = 4,000 ៛ (ប្តូរដោយស្វ័យប្រវត្តិ)</div>
-                </div>
-
-                <button onclick="checkout()" class="btn-check">
-                    CHECKOUT / បង់ប្រាក់
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="payment-modal" class="modal">
-        <div class="modal-content">
-            <h2 id="modal-title" style="color: var(--hologram-cyan);">ជ្រើសរើសវិធីទូទាត់</h2>
-            <p style="font-size: 0.8em; margin-bottom: 15px;">គណនី៖ HUOKAING THARA (002363507)</p>
-
-            <div id="qr-display">
-                </div>
-
-            <div class="payment-grid">
-                <button onclick="pay('ABA KHQR', this)" class="btn-pay aba">ABA KHQR</button>
-                <button onclick="pay('Visa Card', this)" class="btn-pay">Visa</button>
-                <button onclick="pay('MasterCard', this)" class="btn-pay">MasterCard</button>
-                <button onclick="pay('UnionPay', this)" class="btn-pay">UnionPay</button>
-            </div>
-
-            <div class="modal-footer">
-                <button onclick="completeTransaction()" class="btn-confirm">យល់ព្រម (Paid)</button>
-                <button onclick="closePayment()" class="btn-cancel">បោះបង់</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="admin-modal" class="modal">
-        <div class="modal-content" style="width: 600px; max-height: 80vh; overflow-y: auto;">
-            <h2 style="color: var(--hologram-cyan);">📦 គ្រប់គ្រងឃ្លាំងជ័យជោគ</h2>
-            <div id="admin-stock-list" style="margin-top: 20px; text-align: left;"></div>
-            <button onclick="document.getElementById('admin-modal').style.display='none'" class="btn-cancel" style="width: 100%; margin-top: 20px;">បិទផ្ទាំង Admin</button>
-        </div>
-    </div>
-
-<button onclick="openAdminPanel()" class="btn-admin-secret" style="
-    width: 100%; 
-    padding: 10px; 
-    background: #333; 
-    color: white; 
-    border: none; 
-    cursor: pointer;
-    font-weight: bold;
-">Admin</button>
-
-<div class="menu-bottom-container" style="
-    width: 100%; 
-    margin-top: auto; /* Pushes to bottom in a flex menu */
-    padding: 10px;
-    box-sizing: border-box;
-">
-    <div class="hologram-modal" style="
-        position: relative;
-        width: 100%; /* Spans full width of the menu */
-        background: rgba(0, 20, 40, 0.85); 
-        border: 1px solid rgba(0, 255, 255, 0.4); 
-        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-        backdrop-filter: blur(8px);
-        padding: 15px;
-        border-radius: 12px;
-        color: #00ffff;
-        font-family: 'Khmer OS', sans-serif;
-        overflow: hidden;
-    ">
-        <div class="holo-title" style="
-            text-align: center; 
-            margin-bottom: 10px; 
-            font-weight: bold; 
-            font-size: 1.1em;
-            text-shadow: 0 0 8px #00ffff;
-            position: relative;
-            z-index: 2;
-        ">
-            📍 ភោជនីយដ្ឋាន ហួ កាំង
-        </div>
-
-        <div class="map-wrapper" style="
-            position: relative;
-            width: 100%;
-            height: 200px; /* Adjust height as needed */
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 1;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-        ">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2s!4v1715678901234!5m2!1skm!2s&z=2" 
-                width="100%" 
-                height="100%" 
-                style="border:0; filter: hue-rotate(170deg) invert(1) contrast(1.5) opacity(0.3);" 
-                allowfullscreen="" 
-                loading="lazy">
-            </iframe>
-            
-            <div class="scan-line"></div>
-        </div>
-
-        <div style="margin-top: 15px; position: relative; z-index: 2;">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=11.8262314,104.9803321" target="_blank" style="
-                text-decoration: none;
-                background: #00ffff;
-                color: #001428;
-                padding: 10px;
-                border-radius: 6px;
-                display: block;
-                text-align: center;
-                font-weight: bold;
-                font-size: 0.9em;
-                box-shadow: 0 0 10px #00ffff;
-                transition: 0.3s;
-            " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                🚀 មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន
-            </a>
-        </div>
-    </div>
-</div>
-
-<style>
-    /* ---------------------------------------------------------
-       ១. ចលនាស្កេន (Universal Scan Animation)
-    --------------------------------------------------------- */
-    .scan-line {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: rgba(0, 255, 255, 0.7);
-        box-shadow: 0 0 15px #00ffff, 0 0 5px rgba(255, 255, 255, 0.5);
-        animation: scan-process 4s linear infinite;
-        z-index: 10;
-        pointer-events: none; /* Allows clicking through the laser line */
-    }
-
-    @keyframes scan-process {
-        0% { top: 0%; opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { top: 100%; opacity: 0; }
-    }
-
-    /* ---------------------------------------------------------
-       ២. ការកំណត់ទំហំឆ្លាតវៃ (Responsive Breakpoints)
-    --------------------------------------------------------- */
-
-    /* ទូរស័ព្ទដៃ (Mobile Portrait) */
-    @media (max-width: 480px) {
-        .hologram-modal { 
-            width: 95% !important; 
-            margin: 10px auto; 
-            border-radius: 14px; 
-        }
-        .map-wrapper { height: 200px !important; }
-        .holo-title { font-size: 1.2em !important; }
-    }
-
-    /* ថេប្លេត ឬទូរស័ព្ទអេក្រង់ធំ (Tablets / Landscape Mobile) */
-    @media (min-width: 481px) and (max-width: 1024px) {
-        .hologram-modal { width: 80% !important; margin: 15px auto; }
-        .map-wrapper { height: 280px !important; }
-        .holo-title { font-size: 1.6em !important; }
-    }
-
-    /* អេក្រង់កុំព្យូទ័រ (Desktop & Large Screens) */
-    @media (min-width: 1025px) {
-        .hologram-modal { 
-            width: 450px !important; 
-            margin-left: 0; /* Aligns with POS sidebar */
-        }
-        .map-wrapper { height: 320px !important; }
-        .holo-title { font-size: 1.8em !important; }
-    }
-
-    /* ស្ទីលបន្ថែមសម្រាប់ Terminal (Bonus Visuals) */
-    .hologram-modal {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .hologram-modal:hover {
-        transform: scale(1.01);
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
-    }
-</style>
-
-<script src="app.js"></script>
 </body>
-</html> 
+</html>
