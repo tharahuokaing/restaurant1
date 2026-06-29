@@ -155,6 +155,78 @@
         <button class="btn-cat" onclick="filter('Ice-cream')">🍦 ការ៉េម (Ice Cream)</button>
     </div>
 
+	<div class="menu-bottom-container" style="
+    width: 100%; 
+    margin-top: auto; /* Pushes to bottom in a flex menu */
+    padding: 10px;
+    box-sizing: border-box;
+">
+    <div class="hologram-modal" style="
+        position: relative;
+        width: 100%; /* Spans full width of the menu */
+        background: rgba(0, 20, 40, 0.85); 
+        border: 1px solid rgba(0, 255, 255, 0.4); 
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        padding: 15px;
+        border-radius: 12px;
+        color: #00ffff;
+        font-family: 'Khmer OS', sans-serif;
+        overflow: hidden;
+    ">
+        <div class="holo-title" style="
+            text-align: center; 
+            margin-bottom: 10px; 
+            font-weight: bold; 
+            font-size: 1.1em;
+            text-shadow: 0 0 8px #00ffff;
+            position: relative;
+            z-index: 2;
+        ">
+            📍 ភោជនីយដ្ឋាន ហួ កាំង
+        </div>
+
+        <div class="map-wrapper" style="
+            position: relative;
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        ">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2s!4v1715678901234!5m2!1skm!2s&z=2" 
+                width="100%" 
+                height="100%" 
+                style="border:0; filter: hue-rotate(170deg) invert(1) contrast(1.5) opacity(0.3);" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+            
+            <div class="scan-line"></div>
+        </div>
+
+        <div style="margin-top: 15px; position: relative; z-index: 2;">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=11.8262314,104.9803321" target="_blank" style="
+                text-decoration: none;
+                background: #00ffff;
+                color: #001428;
+                padding: 10px;
+                border-radius: 6px;
+                display: block;
+                text-align: center;
+                font-weight: bold;
+                font-size: 0.9em;
+                box-shadow: 0 0 10px #00ffff;
+                transition: 0.3s;
+            " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                🚀 មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន
+            </a>
+        </div>
+    </div>
+</div>
+	
     <div id="main-content">
         <div id="menu"></div>
 
@@ -242,78 +314,6 @@
     cursor: pointer;
     font-weight: bold;
 ">Admin</button>
-
-<div class="menu-bottom-container" style="
-    width: 100%; 
-    margin-top: auto; /* Pushes to bottom in a flex menu */
-    padding: 10px;
-    box-sizing: border-box;
-">
-    <div class="hologram-modal" style="
-        position: relative;
-        width: 100%; /* Spans full width of the menu */
-        background: rgba(0, 20, 40, 0.85); 
-        border: 1px solid rgba(0, 255, 255, 0.4); 
-        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-        backdrop-filter: blur(8px);
-        padding: 15px;
-        border-radius: 12px;
-        color: #00ffff;
-        font-family: 'Khmer OS', sans-serif;
-        overflow: hidden;
-    ">
-        <div class="holo-title" style="
-            text-align: center; 
-            margin-bottom: 10px; 
-            font-weight: bold; 
-            font-size: 1.1em;
-            text-shadow: 0 0 8px #00ffff;
-            position: relative;
-            z-index: 2;
-        ">
-            📍 ភោជនីយដ្ឋាន ហួ កាំង
-        </div>
-
-        <div class="map-wrapper" style="
-            position: relative;
-            width: 100%;
-            height: 200px; /* Adjust height as needed */
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 1;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-        ">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2s!4v1715678901234!5m2!1skm!2s&z=2" 
-                width="100%" 
-                height="100%" 
-                style="border:0; filter: hue-rotate(170deg) invert(1) contrast(1.5) opacity(0.3);" 
-                allowfullscreen="" 
-                loading="lazy">
-            </iframe>
-            
-            <div class="scan-line"></div>
-        </div>
-
-        <div style="margin-top: 15px; position: relative; z-index: 2;">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=11.8262314,104.9803321" target="_blank" style="
-                text-decoration: none;
-                background: #00ffff;
-                color: #001428;
-                padding: 10px;
-                border-radius: 6px;
-                display: block;
-                text-align: center;
-                font-weight: bold;
-                font-size: 0.9em;
-                box-shadow: 0 0 10px #00ffff;
-                transition: 0.3s;
-            " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                🚀 មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន
-            </a>
-        </div>
-    </div>
-</div>
 
 <style>
     /* ---------------------------------------------------------
