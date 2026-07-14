@@ -23,7 +23,8 @@ function addBankNavigationLink() {
 
     // 3. Create the anchor tag with blue text color
     const bankLink = document.createElement('a');
-    bankLink.href = 'https://tharahuokaing.github.io/bank1/';
+    // Updated href to bank2
+    bankLink.href = 'https://tharahuokaing.github.io/bank2/';
     bankLink.className = 'flex items-center transition-colors duration-200 font-bold text-blue-600 hover:text-blue-800';
     
     // 4. Create the bank image/icon element
