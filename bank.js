@@ -1,6 +1,5 @@
 // Master function to handle restaurant-related navigation links
 function setupRestaurantNavigation() {
-    // 1. Find the target "មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន" (View Route to Restaurant) link
     const links = document.querySelectorAll('a');
     let routeLink = null;
 
@@ -11,40 +10,31 @@ function setupRestaurantNavigation() {
         }
     }
 
-    // Guard clause: If the primary restaurant link isn't there, we stop execution
     if (!routeLink) {
         console.error("Primary restaurant link 'មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន' not found.");
         return;
     }
 
-    // 2. Call the helper function to inject only the Bank logo redirect link
-    addBankLogoRedirect(routeLink);
+    // Call the minimal helper to insert only the logo link
+    addBankLogoLink(routeLink);
 }
 
-// Helper function to construct and inject the clickable Bank logo redirect
-function addBankLogoRedirect(targetElement) {
-    // Create the wrapper element
-    const bankNavItem = document.createElement('span'); 
-    bankNavItem.className = 'flex items-center mx-2 inline-flex'; 
-
-    // Create the anchor tag linking to the bank website
+// Minimal helper to inject only the bank logo/icon linking to Bank 2
+function addBankLogoLink(targetElement) {
     const bankLink = document.createElement('a');
     bankLink.href = 'https://tharahuokaing.github.io/bank2/';
-    bankLink.className = 'flex items-center transition-transform duration-200 hover:scale-110';
+    bankLink.className = 'mx-2 inline-flex items-center transition-transform duration-200 hover:scale-110';
     
-    // Create the bank logo image element (minimum size, no text)
     const bankImg = document.createElement('img');
     bankImg.src = 'bank.jpg'; 
-    bankImg.alt = 'Bank Logo';
-    bankImg.className = 'w-5 h-5 object-contain'; // Clean, compact square sizing for the logo
+    bankImg.alt = 'Bank';
+    bankImg.className = 'w-4 h-4 object-contain'; // Small, clean icon sizing
 
-    // Assemble the elements
     bankLink.appendChild(bankImg);
-    bankNavItem.appendChild(bankLink);
 
-    // Insert it right after the passed restaurant element
-    targetElement.parentNode.insertBefore(bankNavItem, targetElement.nextSibling);
+    // Insert the clickable logo right after the restaurant location link
+    targetElement.parentNode.insertBefore(bankLink, targetElement.nextSibling);
 }
 
-// Run the master setup function once the DOM content is fully loaded
+// Run the setup function once the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', setupRestaurantNavigation);
