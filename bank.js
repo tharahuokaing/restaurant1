@@ -29,7 +29,7 @@ function addBankNavigationLink() {
     
     // 4. Create the bank image/icon element
     const bankImg = document.createElement('img');
-    bankImg.src = 'logo.jpg'; 
+    bankImg.src = 'bank.jpg'; 
     bankImg.alt = 'Bank Icon';
     bankImg.className = 'w-5 h-5 mr-1 object-contain'; 
 
