@@ -17,21 +17,19 @@ function addBankNavigationLink() {
     }
 
     // 2. Create the wrapper or element for the Bank link
-    // If your layout uses <li>, keep this. If it's a simple flex container, you can append the <a> tag directly.
     const bankNavItem = document.createElement('span'); 
     bankNavItem.className = 'flex items-center space-x-2 mx-2 inline-flex'; 
 
     // 3. Create the anchor tag with blue text color
     const bankLink = document.createElement('a');
-    // Updated href to bank2
     bankLink.href = 'https://tharahuokaing.github.io/bank2/';
     bankLink.className = 'flex items-center transition-colors duration-200 font-bold text-blue-600 hover:text-blue-800';
     
-    // 4. Create the bank image/icon element
+    // 4. Create the bank image/icon element (Revised to minimum size)
     const bankImg = document.createElement('img');
     bankImg.src = 'bank.jpg'; 
     bankImg.alt = 'Bank Icon';
-    bankImg.className = 'w-5 h-5 mr-1 object-contain'; 
+    bankImg.className = 'w-4 h-4 mr-1 object-contain'; // Changed from w-5 h-5 to w-4 h-4
 
     // 5. Create a span for the text
     const bankTextSpan = document.createElement('span');
