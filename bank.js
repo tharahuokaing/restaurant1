@@ -1,16 +1,25 @@
-// Function to add the Bank link to the navigation bar
+// Function to add the Bank link near the "មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន" link
 function addBankNavigationLink() {
-    // 1. Find the navigation container
-    const navContainer = document.querySelector('nav ul') || document.querySelector('nav');
-    
-    if (!navContainer) {
-        console.error("Navigation container not found.");
+    // 1. Find the "មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន" link
+    const links = document.querySelectorAll('a');
+    let routeLink = null;
+
+    for (const link of links) {
+        if (link.textContent.includes('មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន')) {
+            routeLink = link;
+            break;
+        }
+    }
+
+    if (!routeLink) {
+        console.error("Route link 'មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន' not found.");
         return;
     }
 
-    // 2. Create the new list item element for the Bank link
-    const bankNavItem = document.createElement('li');
-    bankNavItem.className = 'flex items-center space-x-2 mx-2'; 
+    // 2. Create the wrapper or element for the Bank link
+    // If your layout uses <li>, keep this. If it's a simple flex container, you can append the <a> tag directly.
+    const bankNavItem = document.createElement('span'); 
+    bankNavItem.className = 'flex items-center space-x-2 mx-2 inline-flex'; 
 
     // 3. Create the anchor tag with blue text color
     const bankLink = document.createElement('a');
@@ -27,17 +36,13 @@ function addBankNavigationLink() {
     const bankTextSpan = document.createElement('span');
     bankTextSpan.textContent = ' ធនាគារ';
 
-    // 6. Assemble the elements
+    // 6. Assemble the Bank elements
     bankLink.appendChild(bankImg);
     bankLink.appendChild(bankTextSpan);
     bankNavItem.appendChild(bankLink);
 
-    // 7. Insert it near "ទំព័រដើម"
-    if (navContainer.firstChild) {
-        navContainer.insertBefore(bankNavItem, navContainer.firstChild.nextSibling);
-    } else {
-        navContainer.appendChild(bankNavItem);
-    }
+    // 7. Insert it right after the Route Link element
+    routeLink.parentNode.insertBefore(bankNavItem, routeLink.nextSibling);
 }
 
 // Run the function once the DOM content is fully loaded
