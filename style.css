@@ -703,3 +703,147 @@
     justify-content: center;
   }
 }
+
+/* =========================================================
+   12. FULL PAGE AMBIENT LED BACKGROUND
+   ========================================================= */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: #000814;
+  /* Multi-layered LED Neon Glow Background */
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 255, 136, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #000814 0%, #001224 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-khmer);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Dynamic Ambient LED Pulse Grid Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 0;
+  animation: led-glow-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes led-glow-pulse {
+  0% { opacity: 0.3; transform: scale(1); }
+  100% { opacity: 0.8; transform: scale(1.02); }
+}
+
+/* =========================================================
+   13. 1-ROW 5-COLUMN PRODUCT MENU (DESKTOP & MOBILE)
+   ========================================================= */
+#main-content {
+  position: relative;
+  z-index: 1;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#menu {
+  display: grid !important;
+  /* Forces strictly 5 equal columns regardless of screen size */
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ultra-Responsive Full-Size Menu Item Cards */
+.product-card {
+  position: relative;
+  background: rgba(0, 20, 40, 0.7);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.1), inset 0 0 10px rgba(0, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0; /* Prevents flex/grid overflow on small mobile displays */
+}
+
+.product-card:hover {
+  border-color: #00ffff;
+  background: rgba(0, 35, 65, 0.85);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.2);
+  transform: translateY(-3px) scale(1.02);
+}
+
+/* Full-size Responsive Image Frame */
+.product-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Maintains 1:1 square ratio for icon presentation */
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.product-title {
+  color: #ffffff;
+  font-family: var(--font-khmer);
+  font-size: 0.85em;
+  font-weight: 700;
+  margin-bottom: 4px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Prevents long item titles from breaking the 5-item row layout */
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.product-price {
+  color: var(--text-accent);
+  font-weight: bold;
+  font-size: 0.95em;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+/* =========================================================
+   14. MOBILE & POS COMPACT OPTIMIZATION (<= 600px)
+   ========================================================= */
+@media (max-width: 600px) {
+  #main-content {
+    padding: 8px 4px;
+  }
+
+  #menu {
+    gap: 6px !important; /* Tightens padding to accommodate 5 cards cleanly on small screens */
+  }
+
+  .product-card {
+    padding: 6px 4px;
+    border-radius: var(--radius-sm);
+  }
+
+  .product-title {
+    font-size: 0.7em;
+  }
+
+  .product-price {
+    font-size: 0.75em;
+  }
+}
