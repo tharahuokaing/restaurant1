@@ -298,3 +298,177 @@
     font-size: 1.8em !important;
   }
 }
+
+/* =========================================================
+   RECEIPT & INVOICE OPTIMIZATION (MOBILE, ANDROID, DESKTOP)
+   ========================================================= */
+
+/* Base Receipt Container */
+#cart {
+  background: rgba(0, 15, 30, 0.95);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  color: #00ffff;
+  font-family: 'Kantumruy', sans-serif;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Cart Item Rows Layout */
+#cart-list {
+  max-height: 380px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding-right: 4px;
+}
+
+#cart-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+#cart-list::-webkit-scrollbar-thumb {
+  background: #00ffff;
+  border-radius: 4px;
+}
+
+/* Summary Section & Totals */
+.summary-section {
+  background: rgba(0, 255, 255, 0.03);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: auto;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95em;
+  margin-bottom: 8px;
+}
+
+.summary-line.grand-total {
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 0 10px #00ffff;
+  border-top: 1px dashed rgba(0, 255, 255, 0.4);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+#bank-area {
+  background: rgba(0, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+#riel-total {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.btn-check {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #001428;
+  background: #00ffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffff;
+  transition: all 0.2s ease;
+}
+
+.btn-check:active {
+  transform: scale(0.98);
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE RECEIPT MEDIA QUERIES
+   --------------------------------------------------------- */
+
+/* Android Handhelds & Small Smartphones (<= 480px) */
+@media (max-width: 480px) {
+  #cart {
+    width: 100%;
+    border-radius: 0;
+    padding: 10px;
+  }
+
+  .invoice-logo {
+    width: 65px;
+  }
+
+  .invoice-title {
+    font-size: 1.1em;
+  }
+
+  .invoice-subtitle {
+    font-size: 0.75em;
+  }
+
+  #cart-list {
+    max-height: 250px; /* Constrained height for compact Android screens */
+  }
+
+  .summary-line {
+    font-size: 0.85em;
+  }
+
+  .summary-line.grand-total {
+    font-size: 1.1em;
+  }
+
+  .btn-check {
+    padding: 12px;
+    font-size: 1em;
+  }
+}
+
+/* Tablets & Android POS Terminals (481px to 1024px) */
+@media (min-width: 481px) and (max-width: 1024px) {
+  #cart {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  #cart-list {
+    max-height: 320px;
+  }
+
+  .summary-line {
+    font-size: 1em;
+  }
+
+  .summary-line.grand-total {
+    font-size: 1.3em;
+  }
+}
+
+/* Large Desktop Screens (>= 1025px) */
+@media (min-width: 1025px) {
+  #cart {
+    width: 380px;
+    min-width: 350px;
+    position: sticky;
+    top: 20px;
+    height: calc(100vh - 40px);
+  }
+
+  #cart-list {
+    flex-grow: 1;
+    max-height: none; /* Allows list to stretch dynamically on tall desktop displays */
+  }
+}
