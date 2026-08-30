@@ -11,9 +11,15 @@
 </head>
 <body>
 
+    <!-- =========================================================
+       1. HUD NAVIGATION BAR & INTEGRATED SEARCH BUTTON
+       ========================================================= -->
     <header class="top-bar">
-        <div id="Search" class="flex-1">
-            <input type="text" id="search-input" placeholder="ស្វែងរកម្ហូប ឬភេសជ្ជៈ (Search)..." onkeyup="searchProduct(this.value)">
+        <div id="Search" class="flex-1 search-container" style="display: flex; gap: 8px; align-items: center;">
+            <input type="text" id="search-input" placeholder="ស្វែងរកម្ហូប ឬភេសជ្ជៈ (Search)..." onkeyup="if(event.key === 'Enter') triggerSearch()">
+            <button id="search-btn" type="button" class="btn-search" onclick="triggerSearch()">
+                <span class="btn-icon">🔍</span> ស្វែងរក
+            </button>
         </div>
 
         <div id="speakkhmer" class="text-center-p20">
@@ -24,32 +30,32 @@
             </button>
         </div>
 
-        <!-- Navigation Action Triggers -->
         <div class="hud-action-group">
             <button id="open-auth-trigger" type="button" class="btn-auth-open" aria-label="Login or Register">
                 <span class="btn-icon">🔐</span> Log in / Register 
             </button>
 
             <button type="button" class="btn-auth-open" aria-label="Bank1" onclick="window.location.href='https://tharahuokaing.github.io/bank1/'">
-                <span class="btn-icon">🔐</span> Bank1
+                <span class="btn-icon">🏦</span> Bank1
             </button>
 
             <button type="button" class="btn-auth-open" aria-label="Bank2" onclick="window.location.href='https://tharahuokaing.github.io/bank2/'">
-                <span class="btn-icon">🔐</span> Bank2
+                <span class="btn-icon">🏦</span> Bank2
             </button>
 
-            <!-- Performance Analytics Drawer Trigger -->
-            <button id="open-analytics-btn" type="button" class="btn-analytics-open" aria-label="Open Performance Analytics">
+            <button id="open-analytics-btn" type="button" class="btn-analytics-open" onclick="openAnalyticsDrawer()" aria-label="Open Performance Analytics">
                 <span class="btn-icon">📊</span> ANALYTICS
             </button>
 
-            <!-- Transaction Ledger Modal Trigger -->
-            <button id="open-ledger-trigger" type="button" class="btn-ledger-open" aria-label="Open Ledger History">
+            <button id="open-ledger-trigger" type="button" class="btn-ledger-open" onclick="openLedgerModal()" aria-label="Open Ledger History">
                 <span class="btn-icon">📜</span> LEDGER HISTORY
             </button>
         </div>
     </header>
 
+    <!-- =========================================================
+       2. CATEGORY BAR
+       ========================================================= -->
     <div id="category-bar">
         <button class="btn-cat active" onclick="filter('All')">🍱 ទាំងអស់ (All)</button>
         <button class="btn-cat" onclick="filter('Available')">📦 មាននៅក្នុងស្តុក (In Stock)</button>
@@ -62,12 +68,61 @@
         <button class="btn-cat" onclick="filter('Ice-cream')">🍦 ការ៉េម (Ice Cream)</button>
     </div>
 
-    <div class="menu-bottom-container">
-        <div class="hologram-modal">
-            <div class="holo-title">
-                📍 ភោជនីយដ្ឋាន ហួ កាំង
+    <!-- =========================================================
+       3. MAIN LAYOUT (MENU GRID & INVOICE CART)
+       ========================================================= -->
+    <div class="pos-layout-wrapper" style="display: flex; gap: 15px; padding: 15px; flex-wrap: wrap;">
+        
+        <!-- Product Grid Mount -->
+        <div id="main-content" style="flex: 1; min-width: 300px;">
+            <div id="menu"></div>
+        </div>
+
+        <!-- Checkout Receipt Sidebar -->
+        <div id="cart">
+            <div class="invoice-header">
+                <img src="https://github.com/tharahuokaing/restaurant1/blob/main/logo.png?raw=true" alt="Restaurant Logo" class="invoice-logo">
+                <h2 class="invoice-title">វិក្កយបត្រ / INVOICE</h2>
+                <p class="invoice-subtitle">ភោជនីយដ្ឋាន ហួ កាំង (សាខាមុខកំពូល ខេត្តកណ្តាល)</p>
             </div>
 
+            <div id="cart-list"></div>
+
+            <div class="summary-section">
+                <hr class="divider-cyan">
+
+                <div class="summary-line">
+                    <span>តម្លៃសរុប (Subtotal):</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+
+                <div class="summary-line text-red">
+                    <span>បញ្ចុះតម្លៃ (Discount 15%):</span>
+                    <span id="discount">-$0.00</span>
+                </div>
+
+                <div class="summary-line grand-total">
+                    <span>សរុបត្រូវបង់:</span>
+                    <span id="final-total">$0.00</span>
+                </div>
+
+                <div id="bank-area">
+                    <div class="bank-title">💸 ការទូទាត់តាមធនាគារ (KH Riel)</div>
+                    <div id="riel-total">0 ៛</div>
+                    <div class="bank-subtext">$1 = 4,000 ៛ (ប្តូរដោយស្វ័យប្រវត្តិ)</div>
+                </div>
+
+                <button onclick="checkout()" class="btn-check">
+                    CHECKOUT / បង់ប្រាក់
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Modal HUD -->
+    <div class="menu-bottom-container">
+        <div class="hologram-modal">
+            <div class="holo-title">📍 ភោជនីយដ្ឋាន ហួ កាំង</div>
             <div class="map-wrapper">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2s!4v1715678901234!5m2!1skm!2s&z=2" 
@@ -77,7 +132,6 @@
                 </iframe>
                 <div class="scan-line"></div>
             </div>
-
             <div class="map-action-wrapper">
                 <a href="https://www.google.com/maps/dir/?api=1&destination=11.8262314,104.9803321" target="_blank" class="btn-direction">
                     🚀 មើលផ្លូវទៅកាន់ភោជនីយដ្ឋាន
@@ -86,59 +140,22 @@
         </div>
     </div>
 
-    <div id="cart">
-        <div class="invoice-header">
-            <img src="https://github.com/tharahuokaing/restaurant1/blob/main/logo.png?raw=true" alt="Restaurant Logo" class="invoice-logo">
-            <h2 class="invoice-title">វិក្កយបត្រ / INVOICE</h2>
-            <p class="invoice-subtitle">ភោជនីយដ្ឋាន ហួ កាំង (សាខាមុខកំពូល ខេត្តកណ្តាល ព្រះរាជាណាចក្រកម្ពុជា)</p>
-        </div>
+    <!-- =========================================================
+       4. MODALS & SYSTEM MOUNT POINTS
+       ========================================================= -->
 
-        <div id="cart-list"></div>
-
-        <div class="summary-section">
-            <hr class="divider-cyan">
-
-            <div class="summary-line">
-                <span>តម្លៃសរុប (Subtotal):</span>
-                <span id="subtotal">$0.00</span>
-            </div>
-
-            <div class="summary-line text-red">
-                <span>បញ្ចុះតម្លៃ (Discount 15%):</span>
-                <span id="discount">-$0.00</span>
-            </div>
-
-            <div class="summary-line grand-total">
-                <span>សរុបត្រូវបង់:</span>
-                <span id="final-total">$0.00</span>
-            </div>
-
-            <div id="bank-area">
-                <div class="bank-title">💸 ការទូទាត់តាមធនាគារ (KH Riel)</div>
-                <div id="riel-total">0 ៛</div>
-                <div class="bank-subtext">$1 = 4,000 ៛ (ប្តូរដោយស្វ័យប្រវត្តិ)</div>
-            </div>
-
-            <button onclick="checkout()" class="btn-check">
-                CHECKOUT / បង់ប្រាក់
-            </button>
-        </div>
-    </div>
-
+    <!-- Payment Gateway Modal -->
     <div id="payment-modal" class="modal">
         <div class="modal-content">
             <h2 id="modal-title" class="invoice-title">ជ្រើសរើសវិធីទូទាត់</h2>
             <p class="invoice-subtitle">គណនី៖ HUOKAING THARA (002363507)</p>
-
             <div id="qr-display"></div>
-
             <div class="payment-grid">
                 <button onclick="pay('ABA KHQR', this)" class="btn-pay aba">ABA KHQR</button>
                 <button onclick="pay('Visa Card', this)" class="btn-pay">Visa</button>
                 <button onclick="pay('MasterCard', this)" class="btn-pay">MasterCard</button>
                 <button onclick="pay('UnionPay', this)" class="btn-pay">UnionPay</button>
             </div>
-
             <div class="modal-footer">
                 <button onclick="completeTransaction()" class="btn-confirm">យល់ព្រម (Paid)</button>
                 <button onclick="closePayment()" class="btn-cancel">បោះបង់</button>
@@ -146,6 +163,7 @@
         </div>
     </div>
 
+    <!-- Admin Inventory Modal -->
     <div id="admin-modal" class="modal">
         <div class="modal-content admin-modal-content">
             <h2 class="invoice-title">📦 គ្រប់គ្រងឃ្លាំងជ័យជោគ</h2>
@@ -154,13 +172,33 @@
         </div>
     </div>
 
-    <button onclick="openAdminPanel()" class="btn-admin-secret">Admin</button>
-
-    <div id="main-content">
-        <div id="menu"></div>
+    <!-- Analytics.js Target Mount Point -->
+    <div id="analytics-drawer" class="modal">
+        <div class="modal-content" style="max-width: 800px; text-align: left;">
+            <h2 class="invoice-title">📊 PERFORMANCE ANALYTICS</h2>
+            <div id="analytics-content-mount">
+                <p>កំពុងទាញយកទិន្នន័យ (Loading Analytics Engine)...</p>
+            </div>
+            <button onclick="closeAnalyticsDrawer()" class="btn-cancel" style="width: 100%; margin-top: 20px;">បិទ (Close)</button>
+        </div>
     </div>
 
-    <!-- Application JavaScript Bundles -->
+    <!-- Ledger.js Target Mount Point -->
+    <div id="ledger-modal" class="modal">
+        <div class="modal-content" style="max-width: 850px; text-align: left;">
+            <h2 class="invoice-title">📜 TRANSACTION LEDGER HISTORY</h2>
+            <div id="ledger-table-mount">
+                <p>កំពុងទាញយកប្រវត្តិប្រតិបត្តិការ (Loading Ledger Records)...</p>
+            </div>
+            <button onclick="closeLedgerModal()" class="btn-cancel" style="width: 100%; margin-top: 20px;">បិទ (Close)</button>
+        </div>
+    </div>
+
+    <button onclick="openAdminPanel()" class="btn-admin-secret" style="margin: 20px; width: calc(100% - 40px);">Admin Panel</button>
+
+    <!-- =========================================================
+       5. JAVASCRIPT EXECUTION BUNDLES & HANDLERS
+       ========================================================= -->
     <script src="ultra_secure_mode.js"></script>
     <script src="app1.js"></script>
     <script src="music.js"></script>
@@ -168,5 +206,37 @@
     <script src="server.js"></script>
     <script src="analytics.js"></script>
     <script src="ledger.js"></script>
+
+    <!-- Page Event & Modal Handlers -->
+    <script>
+        function triggerSearch() {
+            const query = document.getElementById('search-input').value;
+            if (typeof searchProduct === 'function') {
+                searchProduct(query);
+            }
+        }
+
+        function openAnalyticsDrawer() {
+            const drawer = document.getElementById('analytics-drawer');
+            if (drawer) drawer.style.display = 'flex';
+            if (typeof renderAnalytics === 'function') renderAnalytics();
+        }
+
+        function closeAnalyticsDrawer() {
+            const drawer = document.getElementById('analytics-drawer');
+            if (drawer) drawer.style.display = 'none';
+        }
+
+        function openLedgerModal() {
+            const modal = document.getElementById('ledger-modal');
+            if (modal) modal.style.display = 'flex';
+            if (typeof renderLedger === 'function') renderLedger();
+        }
+
+        function closeLedgerModal() {
+            const modal = document.getElementById('ledger-modal');
+            if (modal) modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
